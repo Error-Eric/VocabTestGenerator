@@ -72,9 +72,12 @@ def open_gen_dialog():
     number_entry = tk.Entry(dialog)
     number_entry.pack(padx=10, pady=5)
 
+    tk.Label(dialog, text="Name of the test:").pack(padx=10, pady=5)
+    name_entry = tk.Entry(dialog)
+    name_entry.pack(padx=10, pady=5)
+
     def confirm():
-        rawunit = string_entry.get().replace('，', ',').split(',')
-        unit = []
+        rawunit, unit = string_entry.get().replace('，', ',').split(','), []
         for rx in rawunit:
             try: unit.append(int(rx))
             except: 
@@ -85,10 +88,10 @@ def open_gen_dialog():
                     else : raise KeyError("Bad range")
                 except: pass # raise error window
         unit.sort()
-        number_value = int(number_entry.get())
+        totnum, testname = int(number_entry.get()), name_entry.get()
         # You can add validation here if needed
-        print(f"Units: {unit}, Number: {number_value}")
-        curtest.gentest(units = unit, num = number_value)
+        print(f"Units: {unit}, Number: {totnum}")
+        curtest.gentest(units = unit, num = totnum, title= testname)
         dialog.destroy()  # Close the dialog
 
     def cancel():
@@ -106,7 +109,10 @@ def open_save_dialog():
         print("Nothing opened.")
         return
     filename = filedialog.asksaveasfilename(
-        confirmoverwrite= True, defaultextension= ".xls")
+        confirmoverwrite= True, 
+        filetypes= (("Excel files","*.xlsx"),),                                         
+        defaultextension= ".xlsx")
+    print(f"saving to {filename}")
     curtest.puttest(True, filename)
 
 # Create the main application window

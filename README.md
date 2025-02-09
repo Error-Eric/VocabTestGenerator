@@ -28,3 +28,7 @@ tk         0.1.0
 ```
 
 Few people are going to use this project. It's highly unlikely that I won't keep updating this.
+
+#### Update log
+
+Feb 9 2025. Better Saving features and printable xlsx file.
